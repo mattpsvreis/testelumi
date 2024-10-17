@@ -8,7 +8,7 @@ export const getFaturas = async (
 ) => {
   try {
     const faturas = await prisma.fatura.findMany();
-    reply.send(faturas);
+    reply.status(200).send(faturas);
   } catch (error) {
     reply.status(500).send(error);
   }
@@ -98,7 +98,7 @@ export const patchFatura = async (
       },
     });
 
-    reply.send(updatedFatura);
+    reply.status(200).send(updatedFatura);
   } catch (error) {
     reply.status(500).send(error);
   }
@@ -152,7 +152,7 @@ export const putFatura = async (
         },
       });
 
-      reply.send(updatedFatura);
+      reply.status(200).send(updatedFatura);
     } else {
       if (
         numero_cliente !== undefined &&

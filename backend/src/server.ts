@@ -1,19 +1,23 @@
 import Fastify from "fastify";
 import { faturasRoutes } from "./routes/faturasRoutes";
-import prisma from "./database/prismaClient";
 
-const fastify = Fastify({ logger: true });
+const server = Fastify({ logger: true });
 
-fastify.register(faturasRoutes);
+server.register(faturasRoutes);
+server.get("/ping", async (request, reply) => {
+  reply.status(200).send("pong");
+});
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000 });
-    console.log("Server running on http://localhost:3000");
+    await server.listen({ port: 3000 });
   } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
+    console.error(err);
+    server.log.error(err);
+    process.exitCode = 1;
   }
 };
 
 start();
+
+export { server, start };

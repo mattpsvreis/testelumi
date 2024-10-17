@@ -5,15 +5,15 @@ import * as faturasController from "../controllers/faturasController";
 jest.mock("../controllers/faturasController");
 
 describe("faturasRoutes", () => {
-  let app: FastifyInstance;
+  let server: FastifyInstance;
 
   beforeAll(async () => {
-    app = Fastify();
-    await faturasRoutes(app);
+    server = Fastify();
+    await faturasRoutes(server);
   });
 
   afterAll(() => {
-    app.close();
+    server.close();
   });
 
   it("should register the GET /faturas route", async () => {
@@ -23,7 +23,7 @@ describe("faturasRoutes", () => {
         reply.send([]);
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas",
     });
@@ -41,7 +41,7 @@ describe("faturasRoutes", () => {
         reply.send({ numero_cliente: "12345" });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/numero_cliente",
     });
@@ -59,7 +59,7 @@ describe("faturasRoutes", () => {
         reply.send({ mes_referencia: "2023-01-01" });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/mes_referencia",
     });
@@ -77,7 +77,7 @@ describe("faturasRoutes", () => {
         reply.send({ energia_eletrica_kwh: 100 });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_eletrica_kwh",
     });
@@ -95,7 +95,7 @@ describe("faturasRoutes", () => {
         reply.send({ energia_eletrica_valor: 200 });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_eletrica_valor",
     });
@@ -113,7 +113,7 @@ describe("faturasRoutes", () => {
         reply.send({ energia_sceee_kwh: 50 });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_sceee_kwh",
     });
@@ -131,7 +131,7 @@ describe("faturasRoutes", () => {
         reply.send({ energia_sceee_valor: 100 });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_sceee_valor",
     });
@@ -149,7 +149,7 @@ describe("faturasRoutes", () => {
         reply.send({ energia_compensada_kwh: 30 });
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_compensada_kwh",
     });
@@ -167,7 +167,7 @@ describe("faturasRoutes", () => {
     ).mockImplementation((req, reply) => {
       reply.send({ energia_compensada_valor: 60 });
     });
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/faturas/1/energia_compensada_valor",
     });
@@ -185,7 +185,7 @@ describe("faturasRoutes", () => {
     ).mockImplementation((req, reply) => {
       reply.send({ contribu_ilum_publica_valor: 10 });
     });
-    const response = await app.inject({
+    const response = await server.inject({
       method: "GET",
       url: "/fatura/1/contribu_ilum_publica_valor",
     });
@@ -200,7 +200,7 @@ describe("faturasRoutes", () => {
         reply.status(201).send({});
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "POST",
       url: "/faturas",
       payload: {
@@ -226,7 +226,7 @@ describe("faturasRoutes", () => {
         reply.send({});
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "PATCH",
       url: "/faturas/1",
       payload: {
@@ -244,7 +244,7 @@ describe("faturasRoutes", () => {
         reply.send({});
       }
     );
-    const response = await app.inject({
+    const response = await server.inject({
       method: "PUT",
       url: "/faturas/1",
       payload: {
