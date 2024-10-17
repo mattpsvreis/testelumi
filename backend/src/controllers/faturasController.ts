@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import prisma from "../database/prismaClient";
 import { Fatura } from "../types/faturasTypes";
+import { processPDF } from "../services/dataExtractor";
 
 export const getFaturas = async (
   request: FastifyRequest,
@@ -46,6 +47,28 @@ export const postFatura = async (
     });
 
     reply.status(201).send(novaFatura);
+  } catch (error) {
+    reply.status(500).send(error);
+  }
+};
+
+export const processFatura = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+) => {
+  try {
+    const file = await request.file();
+
+    if (!file) {
+      reply.status(400).send({ error: "No file uploaded" });
+      return;
+    }
+
+    const fileBuffer = await file.toBuffer();
+
+    const fatura = await processPDF(fileBuffer);
+
+    reply.status(200).send(fatura);
   } catch (error) {
     reply.status(500).send(error);
   }

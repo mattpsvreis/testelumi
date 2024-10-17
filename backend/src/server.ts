@@ -1,9 +1,13 @@
 import Fastify from "fastify";
 import { faturasRoutes } from "./routes/faturasRoutes";
+import multipart from "@fastify/multipart";
 
 const server = Fastify({ logger: true });
 
+server.register(multipart);
+
 server.register(faturasRoutes);
+
 server.get("/ping", async (request, reply) => {
   reply.status(200).send("pong");
 });
