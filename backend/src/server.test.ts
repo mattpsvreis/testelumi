@@ -37,8 +37,5 @@ describe("Server", () => {
 
     expect(logErrorSpy).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalled();
-
-    logErrorSpy.mockRestore();
-    consoleErrorSpy.mockRestore();
   });
 });
