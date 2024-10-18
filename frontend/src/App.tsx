@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 
-import { useThemeStore } from '@stores/themeStore';
+import MainRoutes from '@routes/MainRoutes';
+import { useThemeStore } from '@stores/ThemeStore';
 
 function App() {
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -13,16 +14,7 @@ function App() {
     }
   }, [theme]);
 
-  return (
-    <div className={theme}>
-      <button onClick={toggleTheme}>
-        Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
-      </button>
-      <h1 className={`text-light-primary dark:text-dark-secondary`}>
-        Hello World
-      </h1>
-    </div>
-  );
+  return <MainRoutes></MainRoutes>;
 }
 
 export default App;
