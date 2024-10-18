@@ -1,0 +1,42 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "eslint-config-prettier"
+  ],
+  "ignorePatterns": ["dist"],
+  "overrides": [
+    {
+      "files": ["**/*.{ts,tsx}"],
+      "parserOptions": {
+        "ecmaVersion": 2020
+      },
+      "globals": {
+        "browser": "readonly"
+      },
+      "plugins": [
+        "react-hooks",
+        "react-refresh",
+        "prettier"
+      ],
+      "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react-refresh/only-export-components": [
+          "warn",
+          { "allowConstantExport": true }
+        ],
+        "prettier/prettier": "error"
+      },
+      "settings": {
+        "prettier": {
+          "plugins": [
+            "@trivago/prettier-plugin-sort-imports",
+            "prettier-plugin-tailwindcss"
+          ]
+        }
+      }
+    }
+  ]
+}
