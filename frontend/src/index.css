@@ -16,3 +16,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.light {
+  @apply bg-light-background text-light-text;
+}
+
+.dark {
+  @apply bg-dark-background text-dark-text;
+}
