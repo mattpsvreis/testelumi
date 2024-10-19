@@ -10,7 +10,7 @@ module.exports = {
           secondary: '#47ffda',
           accent: '#00c3ff',
           background: '#ebebeb',
-          text: '#040316',
+          text: '#151515',
           placeholder: '#a0a0a0',
           foreground: '#333333',
           border: '#00c3ff',

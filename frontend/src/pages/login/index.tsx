@@ -21,7 +21,7 @@ const Login: React.FC = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
 
-    navigate('/');
+    navigate('/dashboard');
   };
 
   return (

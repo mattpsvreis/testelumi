@@ -1,6 +1,10 @@
 import { useAuthStore } from '@stores/AuthStore';
 import { useThemeStore } from '@stores/ThemeStore';
+import { ChartBar, Table } from 'phosphor-react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import ToolTip from '@components/data-display/tooltip';
+import ToggleDarkMode from '@components/data-input/toggle-dark-mode';
 
 interface DesktopHeaderProps {
   shouldRender?: boolean;
@@ -9,7 +13,8 @@ interface DesktopHeaderProps {
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   shouldRender = true,
 }) => {
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme } = useThemeStore();
+
   const { setUsername, setIsAuthenticated } = useAuthStore();
 
   const navigate = useNavigate();
@@ -22,14 +27,34 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   }
 
   return shouldRender ? (
-    <div className='flex min-h-12 w-full flex-row items-center justify-between px-8'>
-      <div>
-        <Link to='/'>Home</Link>
+    <div className='flex min-h-12 w-full flex-row items-center justify-between px-8 py-4'>
+      <div className='flex flex-row items-center gap-4'>
+        <Link to='/dashboard' className='no-outline-border outline-none'>
+          <ChartBar
+            id='dashboard-navigator'
+            size={32}
+            className='no-outline-border text-light-text outline-none dark:text-dark-text'
+          />
+          <ToolTip anchorSelect='#dashboard-navigator' placement='right'>
+            <span>Dashboard</span>
+          </ToolTip>
+        </Link>
+        <Link to='/biblioteca' className='no-outline-border outline-none'>
+          <Table
+            id='library-navigator'
+            size={32}
+            className='no-outline-border text-light-text outline-none dark:text-dark-text'
+          />
+          <ToolTip anchorSelect='#library-navigator' placement='right'>
+            <span>Biblioteca de Faturas</span>
+          </ToolTip>
+        </Link>
       </div>
-      <div className='flex flex-row gap-4'>
-        <button type='button' onClick={() => toggleTheme()}>
-          {theme.charAt(0).toUpperCase() + theme.slice(1).toLowerCase()} Mode
-        </button>
+      <div className='flex flex-row items-center gap-4'>
+        <ToggleDarkMode id='toggle-darkmode-button' />
+        <ToolTip anchorSelect='#toggle-darkmode-button' placement='bottom'>
+          <span>Trocar para {theme === 'dark' ? 'Light' : 'Dark'} Mode</span>
+        </ToolTip>
         <button type='button' onClick={handleLogout}>
           Logout
         </button>

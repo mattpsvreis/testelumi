@@ -1,7 +1,7 @@
 import { useThemeStore } from '@stores/ThemeStore';
 import { useNavigate } from 'react-router-dom';
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
 
   const navigate = useNavigate();
@@ -24,4 +24,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Dashboard;
