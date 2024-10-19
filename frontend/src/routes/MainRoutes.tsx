@@ -2,6 +2,7 @@ import Layout from '@layouts/Layout';
 import { useAuthStore } from '@stores/AuthStore';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import Biblioteca from '@pages/biblioteca';
 import Dashboard from '@pages/dashboard';
 import Login from '@pages/login';
 
@@ -20,6 +21,7 @@ const MainRoutes: React.FC = () => {
           {/* Protected Routes */}
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/biblioteca' element={<Biblioteca />} />
           </Route>
         </Routes>
       </Layout>
