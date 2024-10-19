@@ -1,6 +1,6 @@
 import { useAuthStore } from '@stores/AuthStore';
 import { useThemeStore } from '@stores/ThemeStore';
-import { ChartBar, Table } from 'phosphor-react';
+import { ChartBar, SignOut, Table } from 'phosphor-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import ToolTip from '@components/data-display/tooltip';
@@ -52,11 +52,18 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       </div>
       <div className='flex flex-row items-center gap-4'>
         <ToggleDarkMode id='toggle-darkmode-button' />
-        <ToolTip anchorSelect='#toggle-darkmode-button' placement='bottom'>
+        <ToolTip anchorSelect='#toggle-darkmode-button' placement='left'>
           <span>Trocar para {theme === 'dark' ? 'Light' : 'Dark'} Mode</span>
         </ToolTip>
         <button type='button' onClick={handleLogout}>
-          Logout
+          <SignOut
+            id='logout-button'
+            size={32}
+            className='no-outline-border text-light-text outline-none dark:text-dark-text'
+          />
+          <ToolTip anchorSelect='#logout-button' placement='left'>
+            <span>Logout</span>
+          </ToolTip>
         </button>
       </div>
     </div>
