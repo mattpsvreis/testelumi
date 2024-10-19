@@ -1,3 +1,4 @@
+import Layout from '@layouts/Layout';
 import { useAuthStore } from '@stores/AuthStore';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
@@ -11,15 +12,17 @@ const MainRoutes: React.FC = () => {
 
   return (
     <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path='/login' element={<Login />} />
+      <Layout>
+        <Routes>
+          {/* Public Routes */}
+          <Route path='/login' element={<Login />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path='/' element={<Home />} />
-        </Route>
-      </Routes>
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            <Route path='/' element={<Home />} />
+          </Route>
+        </Routes>
+      </Layout>
     </Router>
   );
 };

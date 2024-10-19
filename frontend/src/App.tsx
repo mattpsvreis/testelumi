@@ -14,7 +14,7 @@ function App() {
     }
   }, [theme]);
 
-  return <MainRoutes></MainRoutes>;
+  return <MainRoutes />;
 }
 
 export default App;
