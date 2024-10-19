@@ -12,7 +12,7 @@ module.exports = {
           background: '#ebebeb',
           text: '#151515',
           placeholder: '#a0a0a0',
-          foreground: '#333333',
+          foreground: '#d4d4d4',
           border: '#00c3ff',
         },
         dark: {
@@ -22,7 +22,7 @@ module.exports = {
           background: '#151515',
           text: '#eae9fc',
           placeholder: '#666666',
-          foreground: '#999999',
+          foreground: '#303030',
           border: '#00c3ff',
         },
       },

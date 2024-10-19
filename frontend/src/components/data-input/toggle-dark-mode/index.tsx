@@ -14,7 +14,7 @@ const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({ id }) => {
     <div
       id={id}
       className={`relative flex h-8 w-16 cursor-pointer items-center justify-between rounded-full px-1 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-dark-text' : 'bg-light-foreground'
+        theme === 'dark' ? 'bg-dark-text' : 'bg-light-placeholder'
       }`}
       onClick={() => toggleTheme()}
     >
