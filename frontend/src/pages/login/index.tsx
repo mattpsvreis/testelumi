@@ -4,6 +4,7 @@ import { Eye, EyeSlash } from 'phosphor-react';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '@components/data-input/input';
+import Button from '@components/interactive/button';
 
 import { useAuthStore } from '@stores/AuthStore';
 
@@ -66,12 +67,9 @@ const Login: React.FC = () => {
             {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
           </button>
         </div>
-        <button
-          type='submit'
-          className='w-full rounded bg-light-primary py-2 font-semibold text-light-text dark:bg-dark-primary'
-        >
+        <Button type='submit' className='w-full'>
           Login
-        </button>
+        </Button>
       </form>
     </div>
   );
