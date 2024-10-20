@@ -72,22 +72,10 @@ export const processFatura = async (
     const faturaProcessada = await processPDF(fileBuffer);
 
     const filePath = path.join(UPLOAD_DIR, file.filename);
-    const writeStream = fs.createWriteStream(filePath);
-    file.file.pipe(writeStream);
 
-    writeStream.on("finish", () => {
-      console.log("File successfully written to:", filePath);
-    });
+    await fs.promises.writeFile(filePath, fileBuffer);
 
-    writeStream.on("error", (err) => {
-      console.error("Error writing file:", err);
-      reply.status(500).send(err);
-      return;
-    });
-
-    const fileUrl = `${request.protocol}://${request.hostname}:${request.port}/uploads/${file.filename}`;
-
-    console.log("fileUrl:", fileUrl);
+    const fileUrl = `${request.protocol}://${request.hostname}:3000/uploads/${file.filename}`;
 
     const fatura = await prisma.fatura.create({
       data: { ...faturaProcessada, fileUrl: fileUrl },
@@ -95,6 +83,7 @@ export const processFatura = async (
 
     reply.status(201).send(fatura);
   } catch (error) {
+    console.error("Error processing fatura:", error);
     reply.status(500).send(error);
   }
 };
