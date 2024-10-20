@@ -11,6 +11,26 @@ export const getFaturas = async (): Promise<Fatura[] | void> => {
     .catch((err) => console.error(err));
 };
 
+export const getFaturasById = async (id: number): Promise<Fatura[] | void> => {
+  return await Axios.get<Fatura[]>(`/faturas/id/${id}`)
+    .then((response) => {
+      console.log('response.data:', response.data);
+      return response.data;
+    })
+    .catch((err) => console.error(err));
+};
+
+export const getFaturasByNumeroCliente = async (
+  numeroCliente: string
+): Promise<Fatura[] | void> => {
+  return await Axios.get<Fatura[]>(`/faturas/numero_cliente/${numeroCliente}`)
+    .then((response) => {
+      console.log('response.data:', response.data);
+      return response.data;
+    })
+    .catch((err) => console.error(err));
+};
+
 export const postFatura = async (data: Fatura): Promise<Fatura | void> => {
   return await Axios.post<Fatura>('/faturas', data)
     .then((response) => {

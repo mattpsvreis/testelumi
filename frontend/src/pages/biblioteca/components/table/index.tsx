@@ -47,7 +47,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
   ];
 
   function handleDownloadFatura(fatura: Fatura) {
-    const url = fatura.downloadLink;
+    const url = fatura.fileUrl;
     window.open(url, '_blank');
   }
 
