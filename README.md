@@ -87,3 +87,15 @@ O frontend utiliza Tailwind CSS para estilização. O arquivo CSS principal e ú
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+## Comentários
+
+O tempo para o teste foi bem curto dado o escopo do mesmo. Tentei focar em atender as necessidades principais do teste e o tempo que me sobrou utilizei para melhorar a experiência de usuário e garantir que tudo estaria funcionando de forma suave.
+
+Gostaria de ter tido tempo de adicionar funcionalidade para apresentar um sistema de loading e toasts em par com as requests feitas pelo frontend ao backend - garantindo uma melhor experiência de usuário.
+
+Gostaria de ter tido tempo para não precisar mockar os consumidores no frontend.
+
+Gostaria de ter tido tempo para elaborar mais filtros além dos providos.
+
+Gostaria de ter tido tempo para popular melhor o dashboard com mais informações além das essenciais.
