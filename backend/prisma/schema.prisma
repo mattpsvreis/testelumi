@@ -24,4 +24,5 @@ model Fatura {
   energia_compensada_kwh      Float
   energia_compensada_valor    Float
   contribu_ilum_publica_valor Float
+  fileUrl                     String?
 }

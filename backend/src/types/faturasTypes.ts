@@ -8,4 +8,5 @@ export interface Fatura {
   energia_compensada_kwh: number;
   energia_compensada_valor: number;
   contribu_ilum_publica_valor: number;
+  fileUrl?: string;
 }
