@@ -46,13 +46,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
 
   const lines = text.split("\n");
 
-  let i = 0;
-
-  lines.forEach((line) => {
-    console.log(i, ":", line);
-    i++;
-  });
-
   /* Número do Cliente */
 
   const line_with_numero_cliente = lines.findIndex((line) =>
@@ -63,8 +56,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
     .replace(/\s+/g, "")
     .slice(0, 10);
 
-  console.log("numero_cliente:", numero_cliente);
-
   /* Mês de Referência */
 
   const line_with_mes_referencia = lines.findIndex((line) =>
@@ -74,8 +65,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
   const mes_referencia = createDateFromString(
     lines[line_with_mes_referencia + 1].replace(/\s+/g, "").slice(0, 8)
   );
-
-  console.log("mes_referencia:", mes_referencia);
 
   /* Energia Elétrica */
 
@@ -90,16 +79,12 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
     ? energia_eletrica_kwh_match[1]
     : null;
 
-  console.log(`energia_eletrica_kwh: ${energia_eletrica_kwh}`);
-
   const energia_eletrica_valor_match = lines[line_with_energia_eletrica].match(
     /Energia ElétricakWh\s+[\d.]+\s+[\d,]+\s+([\d,]+)/
   );
   const energia_eletrica_valor = energia_eletrica_valor_match
     ? energia_eletrica_valor_match[1]
     : null;
-
-  console.log(`energia_eletrica_valor: ${energia_eletrica_valor}`);
 
   /* Energia SCEE s/ICMS */
 
@@ -114,16 +99,12 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
     ? energia_scee_kwh_match[1]
     : null;
 
-  console.log(`energia_scee_kwh: ${energia_scee_kwh}`);
-
   const energia_scee_valor_match = lines[line_with_energia_scee].match(
     /Energia SCEE s\/ ICMSkWh\s+[\d.]+\s+[\d,]+\s+([\d.,]+)/
   );
   const energia_scee_valor = energia_scee_valor_match
     ? energia_scee_valor_match[1]
     : null;
-
-  console.log(`energia_scee_valor: ${energia_scee_valor}`);
 
   /* Energia Compensada */
 
@@ -138,8 +119,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
     ? energia_compensada_kwh_match[1]
     : null;
 
-  console.log(`energia_compensada_kwh: ${energia_compensada_kwh}`);
-
   const energia_compensada_valor_match = lines[
     line_with_energia_compensada
   ].match(/Energia compensada GD IkWh\s+[\d.]+\s+[\d.,]+\s+(-?[\d.,]+)/);
@@ -147,8 +126,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
   const energia_compensada_valor = energia_compensada_valor_match
     ? energia_compensada_valor_match[1]
     : null;
-
-  console.log(`energia_compensada_valor: ${energia_compensada_valor}`);
 
   /* Contribuição Iluminação Pública */
 
@@ -163,8 +140,6 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
   const contribu_ilum_publica_valor = contribu_ilum_publica_valor_match
     ? contribu_ilum_publica_valor_match[1]
     : null;
-
-  console.log(`contribu_ilum_publica_valor: ${contribu_ilum_publica_valor}`);
 
   /* Checando se todos os dados foram resgatados */
 
