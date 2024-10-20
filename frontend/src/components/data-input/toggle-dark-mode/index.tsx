@@ -10,13 +10,18 @@ interface ToggleDarkModeProps {
 const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({ id }) => {
   const { theme, toggleTheme } = useThemeStore();
 
+  function handleToggleTheme() {
+    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
+    toggleTheme();
+  }
+
   return (
     <div
       id={id}
       className={`relative flex h-8 w-16 cursor-pointer items-center justify-between rounded-full px-1 transition-colors duration-300 ${
         theme === 'dark' ? 'bg-dark-text' : 'bg-light-placeholder'
       }`}
-      onClick={() => toggleTheme()}
+      onClick={handleToggleTheme}
     >
       <Moon size={24} className='text-light-text' />
       <Sun size={24} className='text-dark-text' />

@@ -27,7 +27,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   }
 
   return shouldRender ? (
-    <div className='flex min-h-12 w-full flex-row items-center justify-between px-8 py-4'>
+    <div className='flex min-h-12 w-full flex-row items-center justify-between px-8 py-4 shadow-lg'>
       <div className='flex flex-row items-center gap-4'>
         <Link to='/dashboard' className='no-outline-border outline-none'>
           <ChartBar

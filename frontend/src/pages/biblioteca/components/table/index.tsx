@@ -32,7 +32,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
 
   return (
     <table className='flex w-full flex-col items-center text-light-text shadow-xl dark:text-dark-text'>
-      <thead className='border-1 w-full rounded-t-lg border border-dark-background/50 bg-light-secondary px-4 text-lg dark:border-light-background dark:bg-dark-secondary'>
+      <thead className='border-1 w-full rounded-t-lg border border-dark-background/50 bg-light-primary px-4 text-lg dark:border-light-background dark:bg-dark-secondary'>
         <tr className='flex w-full flex-row'>
           <th className='flex w-[15%] justify-center p-4 font-semibold'>
             Nome da UC
@@ -53,7 +53,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
           ))}
         </tr>
       </thead>
-      <tbody className='border-1 border-t-none w-full border border-dark-background/50 bg-light-foreground px-4 text-sm dark:border-light-background dark:bg-dark-foreground'>
+      <tbody className='border-1 w-full border border-t-0 border-dark-background/50 bg-light-foreground px-4 text-sm dark:border-light-background dark:bg-dark-foreground'>
         {data.map((consumidor, key) => (
           <tr key={key} className='flex w-full flex-row'>
             <td className='flex w-[15%] justify-center p-4'>
