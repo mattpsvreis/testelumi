@@ -11,68 +11,96 @@ import {
   YAxis,
 } from 'recharts';
 
-import { faturasMock2024 } from '../../mocks/faturas';
+import Select from '@components/data-input/select';
+
+import {
+  consumidorMockJoseMesaly,
+  consumidorMockSelfway,
+} from '@mocks/consumidor';
+
+import { useDashboardStore } from '@stores/DashboardStore';
 
 const Dashboard: React.FC = () => {
-  const totals = faturasMock2024.reduce(
+  const consumidores = [consumidorMockJoseMesaly, consumidorMockSelfway];
+  const {
+    selectedConsumer,
+    selectedYear,
+    setSelectedConsumer,
+    setSelectedYear,
+  } = useDashboardStore();
+
+  const filteredData =
+    consumidores
+      .find((c) => c.nome_uc === selectedConsumer)
+      ?.faturas.filter(
+        (fatura) =>
+          new Date(fatura.mes_referencia).getFullYear().toString() ===
+          selectedYear
+      ) || [];
+
+  const totals = filteredData.reduce(
     (acc, fatura) => {
-      acc.energia_eletrica_kwh += fatura.energia_eletrica_kwh;
-      acc.energia_eletrica_valor += fatura.energia_eletrica_valor;
-      acc.energia_sceee_kwh += fatura.energia_sceee_kwh;
-      acc.energia_sceee_valor += fatura.energia_sceee_valor;
+      acc.consumo_energia_eletrica_kwh +=
+        fatura.energia_eletrica_kwh + fatura.energia_sceee_kwh;
       acc.energia_compensada_kwh += fatura.energia_compensada_kwh;
-      acc.energia_compensada_valor += fatura.energia_compensada_valor;
-      acc.contribu_ilum_publica_valor += fatura.contribu_ilum_publica_valor;
+      acc.valor_total_sem_gdr +=
+        fatura.energia_eletrica_valor +
+        fatura.energia_sceee_valor +
+        fatura.contribu_ilum_publica_valor;
+      acc.economia_gdr += (fatura.energia_compensada_valor * -1);
       return acc;
     },
     {
-      energia_eletrica_kwh: 0,
-      energia_eletrica_valor: 0,
-      energia_sceee_kwh: 0,
-      energia_sceee_valor: 0,
+      consumo_energia_eletrica_kwh: 0,
       energia_compensada_kwh: 0,
-      energia_compensada_valor: 0,
-      contribu_ilum_publica_valor: 0,
+      valor_total_sem_gdr: 0,
+      economia_gdr: 0,
     }
   );
 
-  const chartData = faturasMock2024.map((fatura) => ({
-    mes: fatura.mes_referencia.toLocaleDateString('pt-BR', {
+  const chartData = filteredData.map((fatura) => ({
+    mes: new Date(fatura.mes_referencia).toLocaleDateString('pt-BR', {
       month: 'short',
       year: 'numeric',
     }),
-    energia_eletrica_kwh: fatura.energia_eletrica_kwh,
-    energia_eletrica_valor: fatura.energia_eletrica_valor,
-    energia_sceee_kwh: fatura.energia_sceee_kwh,
-    energia_sceee_valor: fatura.energia_sceee_valor,
+    consumo_energia_eletrica_kwh:
+      fatura.energia_eletrica_kwh + fatura.energia_sceee_kwh,
     energia_compensada_kwh: fatura.energia_compensada_kwh,
-    energia_compensada_valor: fatura.energia_compensada_valor,
-    contribu_ilum_publica_valor: fatura.contribu_ilum_publica_valor,
+    valor_total_sem_gdr:
+      fatura.energia_eletrica_valor +
+      fatura.energia_sceee_valor +
+      fatura.contribu_ilum_publica_valor,
+    economia_gdr: (fatura.energia_compensada_valor * -1),
   }));
 
   return (
     <div className='my-8 flex w-full flex-col gap-8'>
+      <div className='flex gap-4'>
+        <Select
+          value={selectedConsumer}
+          placeholder='Filtrar por Consumidor'
+          onChange={setSelectedConsumer}
+          options={consumidores.map((consumidor) => consumidor.nome_uc)}
+        />
+        <Select
+          value={selectedYear}
+          placeholder='Filtrar por Ano'
+          onChange={setSelectedYear}
+          options={[
+            ...new Set(
+              consumidores.flatMap((c) =>
+                c.faturas.map((f) =>
+                  new Date(f.mes_referencia).getFullYear().toString()
+                )
+              )
+            ),
+          ]}
+        />
+      </div>
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
-          <h2 className='mb-4 text-xl font-semibold'>Energia Elétrica (kWh)</h2>
-          <ResponsiveContainer width='100%' height={300}>
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray='3 3' />
-              <XAxis dataKey='mes' />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey='energia_eletrica_kwh'
-                fill='#12b5e7'
-                name={'Energia Elétrica (kWh)'}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='mb-4 text-xl font-semibold'>
-            Energia Elétrica (Valor)
+            Resultados de Energia (kWh)
           </h2>
           <ResponsiveContainer width='100%' height={300}>
             <BarChart data={chartData}>
@@ -82,9 +110,38 @@ const Dashboard: React.FC = () => {
               <Tooltip />
               <Legend />
               <Bar
-                dataKey='energia_eletrica_valor'
+                dataKey='consumo_energia_eletrica_kwh'
+                fill='#12b5e7'
+                name={'Consumo de Energia Elétrica (kWh)'}
+              />
+              <Bar
+                dataKey='energia_compensada_kwh'
+                fill='#ff7300'
+                name={'Energia Compensada (kWh)'}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
+          <h2 className='mb-4 text-xl font-semibold'>
+            Resultados Financeiros (R$)
+          </h2>
+          <ResponsiveContainer width='100%' height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray='3 3' />
+              <XAxis dataKey='mes' />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar
+                dataKey='valor_total_sem_gdr'
                 fill='#00d9ad'
-                name={'Energia Elétrica (R$)'}
+                name={'Valor Total sem GDR (R$)'}
+              />
+              <Bar
+                dataKey='economia_gdr'
+                fill='#ff7300'
+                name={'Economia GDR (R$)'}
               />
             </BarChart>
           </ResponsiveContainer>
@@ -93,41 +150,27 @@ const Dashboard: React.FC = () => {
       <div className='grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2'>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Energia Elétrica Consumida (kWh)
+            Total Consumo de Energia Elétrica no Ano de {selectedYear} (kWh)
           </h2>
-          <p>{totals.energia_eletrica_kwh} kWh</p>
+          <p>{totals.consumo_energia_eletrica_kwh} kWh</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Energia Elétrica Consumida (R$)
-          </h2>
-          <p>R${totals.energia_eletrica_valor.toFixed(2)}</p>
-        </div>
-        <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
-          <h2 className='text-xl font-semibold'>Total Energia SCEEE (kWh)</h2>
-          <p>{totals.energia_sceee_kwh} kWh</p>
-        </div>
-        <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
-          <h2 className='text-xl font-semibold'>Total Energia SCEEE (R$)</h2>
-          <p>R${totals.energia_sceee_valor.toFixed(2)}</p>
-        </div>
-        <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
-          <h2 className='text-xl font-semibold'>
-            Total Energia Compensada (kWh)
+            Total Energia Compensada no Ano de {selectedYear} (kWh)
           </h2>
           <p>{totals.energia_compensada_kwh} kWh</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Energia Compensada (R$)
+            Total Valor Total sem GDR no Ano de {selectedYear} (R$)
           </h2>
-          <p>-R${(totals.energia_compensada_valor * -1).toFixed(2)}</p>
+          <p>R${totals.valor_total_sem_gdr.toFixed(2)}</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Contribuição Iluminação Pública (R$)
+            Total Economia GDR no Ano de {selectedYear} (R$)
           </h2>
-          <p>R${totals.contribu_ilum_publica_valor.toFixed(2)}</p>
+          <p>R${totals.economia_gdr.toFixed(2)}</p>
         </div>
       </div>
     </div>
