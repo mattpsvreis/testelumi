@@ -43,18 +43,18 @@ const Dashboard: React.FC = () => {
       acc.consumo_energia_eletrica_kwh +=
         fatura.energia_eletrica_kwh + fatura.energia_sceee_kwh;
       acc.energia_compensada_kwh += fatura.energia_compensada_kwh;
-      acc.valor_total_sem_gdr +=
+      acc.valor_total_sem_gd +=
         fatura.energia_eletrica_valor +
         fatura.energia_sceee_valor +
         fatura.contribu_ilum_publica_valor;
-      acc.economia_gdr += (fatura.energia_compensada_valor * -1);
+      acc.economia_gd += fatura.energia_compensada_valor * -1;
       return acc;
     },
     {
       consumo_energia_eletrica_kwh: 0,
       energia_compensada_kwh: 0,
-      valor_total_sem_gdr: 0,
-      economia_gdr: 0,
+      valor_total_sem_gd: 0,
+      economia_gd: 0,
     }
   );
 
@@ -66,11 +66,11 @@ const Dashboard: React.FC = () => {
     consumo_energia_eletrica_kwh:
       fatura.energia_eletrica_kwh + fatura.energia_sceee_kwh,
     energia_compensada_kwh: fatura.energia_compensada_kwh,
-    valor_total_sem_gdr:
+    valor_total_sem_gd:
       fatura.energia_eletrica_valor +
       fatura.energia_sceee_valor +
       fatura.contribu_ilum_publica_valor,
-    economia_gdr: (fatura.energia_compensada_valor * -1),
+    economia_gd: fatura.energia_compensada_valor * -1,
   }));
 
   return (
@@ -134,14 +134,14 @@ const Dashboard: React.FC = () => {
               <Tooltip />
               <Legend />
               <Bar
-                dataKey='valor_total_sem_gdr'
+                dataKey='valor_total_sem_gd'
                 fill='#00d9ad'
-                name={'Valor Total sem GDR (R$)'}
+                name={'Valor Total sem Economia GD (R$)'}
               />
               <Bar
-                dataKey='economia_gdr'
+                dataKey='economia_gd'
                 fill='#ff7300'
-                name={'Economia GDR (R$)'}
+                name={'Economia GD (R$)'}
               />
             </BarChart>
           </ResponsiveContainer>
@@ -150,27 +150,27 @@ const Dashboard: React.FC = () => {
       <div className='grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2'>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Consumo de Energia Elétrica no Ano de {selectedYear} (kWh)
+            Consumo de Energia Elétrica no Ano de {selectedYear} (kWh)
           </h2>
           <p>{totals.consumo_energia_eletrica_kwh} kWh</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Energia Compensada no Ano de {selectedYear} (kWh)
+            Energia Compensada no Ano de {selectedYear} (kWh)
           </h2>
           <p>{totals.energia_compensada_kwh} kWh</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Valor Total sem GDR no Ano de {selectedYear} (R$)
+            Valor Total sem GD no Ano de {selectedYear} (R$)
           </h2>
-          <p>R${totals.valor_total_sem_gdr.toFixed(2)}</p>
+          <p>R${totals.valor_total_sem_gd.toFixed(2)}</p>
         </div>
         <div className='rounded bg-light-foreground/40 p-4 shadow-lg dark:bg-dark-foreground'>
           <h2 className='text-xl font-semibold'>
-            Total Economia GDR no Ano de {selectedYear} (R$)
+            Economia GD no Ano de {selectedYear} (R$)
           </h2>
-          <p>R${totals.economia_gdr.toFixed(2)}</p>
+          <p>R${totals.economia_gd.toFixed(2)}</p>
         </div>
       </div>
     </div>
