@@ -2,6 +2,7 @@ import useBibliotecaStore from '@stores/BibliotecaStore';
 import { FilePdf } from 'phosphor-react';
 
 import ToolTip from '@components/data-display/tooltip';
+import Input from '@components/data-input/input';
 import Select from '@components/data-input/select';
 
 import Consumidor from '../../../../models/consumidor';
@@ -76,12 +77,11 @@ const Table: React.FC<TableProps> = ({ data }) => {
             placeholder='Filtrar por Consumidor'
           />
         </div>
-        <input
+        <Input
           type='text'
           value={numeroUc}
-          onChange={(e) => setNumeroUc(e.target.value)}
+          onChange={setNumeroUc}
           placeholder='Filtrar por Número da UC'
-          className='rounded border border-dark-background/50 bg-light-foreground/40 p-2 text-light-text outline-none placeholder:text-light-placeholder dark:border-light-background dark:bg-dark-foreground dark:text-dark-text dark:placeholder:text-dark-placeholder'
         />
       </div>
       <table className='flex w-full flex-col items-center text-light-text shadow-xl dark:text-dark-text'>
