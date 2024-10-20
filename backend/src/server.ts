@@ -1,10 +1,25 @@
 import Fastify from "fastify";
 import { faturasRoutes } from "./routes/faturasRoutes";
-import multipart from "@fastify/multipart";
+import fastifyMultipart from "@fastify/multipart";
+import fastifyStatic from "@fastify/static";
+import path from "path";
+import fs from "fs";
 
 const server = Fastify({ logger: true });
 
-server.register(multipart);
+const UPLOAD_DIR = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR);
+}
+
+server.register(fastifyMultipart);
+
+server.register(fastifyStatic, {
+  root: UPLOAD_DIR,
+
+  prefix: "/uploads/",
+});
 
 server.register(faturasRoutes);
 
@@ -24,4 +39,4 @@ const start = async () => {
 
 start();
 
-export { server, start };
+export { server, start, UPLOAD_DIR };
