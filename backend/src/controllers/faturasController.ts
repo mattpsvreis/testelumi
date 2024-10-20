@@ -35,6 +35,18 @@ export const postFatura = async (
   } = request.body;
 
   try {
+    const faturaExists = await prisma.fatura.findFirst({
+      where: {
+        numero_cliente: numero_cliente,
+        mes_referencia: mes_referencia,
+      },
+    });
+
+    if (faturaExists) {
+      reply.status(400).send({ error: "Fatura already exists" });
+      return;
+    }
+
     const novaFatura = await prisma.fatura.create({
       data: {
         numero_cliente,
@@ -68,10 +80,26 @@ export const processFatura = async (
     }
 
     const fileBuffer = await file.toBuffer();
+    const filePath = path.join(UPLOAD_DIR, file.filename);
+
+    if (fs.existsSync(filePath)) {
+      reply.status(400).send({ error: "File already exists" });
+      return;
+    }
 
     const faturaProcessada = await processPDF(fileBuffer);
 
-    const filePath = path.join(UPLOAD_DIR, file.filename);
+    const faturaExists = await prisma.fatura.findFirst({
+      where: {
+        numero_cliente: faturaProcessada.numero_cliente,
+        mes_referencia: faturaProcessada.mes_referencia,
+      },
+    });
+
+    if (faturaExists) {
+      reply.status(400).send({ error: "Fatura already exists" });
+      return;
+    }
 
     await fs.promises.writeFile(filePath, fileBuffer);
 
