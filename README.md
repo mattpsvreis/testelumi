@@ -50,7 +50,7 @@ npx prisma migrate dev
 
 ### Variáveis de Ambiente
 
-O backend utiliza variáveis de ambiente definidas no arquivo .env. Há um arquivo .env.example que mostra quais variáveis precisam ser definidas.
+O backend utiliza variáveis de ambiente definidas no arquivo `.env`. Há um arquivo `.env.example` que mostra quais variáveis precisam ser definidas.
 
 ### Esquema Prisma
 
