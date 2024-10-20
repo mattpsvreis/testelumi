@@ -2,33 +2,42 @@ import Axios from '@configs/AxiosConfig';
 
 import Fatura from '@models/fatura';
 
-export const getFaturas = async (): Promise<Fatura[] | void> => {
+export const getFaturas = async (): Promise<Fatura[]> => {
   return await Axios.get<Fatura[]>('/faturas')
     .then((response) => {
       console.log('response.data:', response.data);
       return response.data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return [];
+    });
 };
 
-export const getFaturasById = async (id: number): Promise<Fatura[] | void> => {
+export const getFaturasById = async (id: number): Promise<Fatura[]> => {
   return await Axios.get<Fatura[]>(`/faturas/id/${id}`)
     .then((response) => {
       console.log('response.data:', response.data);
       return response.data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return [];
+    });
 };
 
 export const getFaturasByNumeroCliente = async (
   numeroCliente: string
-): Promise<Fatura[] | void> => {
+): Promise<Fatura[]> => {
   return await Axios.get<Fatura[]>(`/faturas/numero_cliente/${numeroCliente}`)
     .then((response) => {
       console.log('response.data:', response.data);
       return response.data;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return [];
+    });
 };
 
 export const postFatura = async (data: Fatura): Promise<Fatura | void> => {
