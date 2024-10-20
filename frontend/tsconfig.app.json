@@ -22,9 +22,12 @@
 
     /* Pretty Imports */
     "paths": {
-      "@pages/*": ["./src/pages/*"],
       "@components/*": ["./src/components/*"],
+      "@configs/*": ["./src/configs/*"],
       "@layouts/*": ["./src/layouts/*"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@models/*": ["./src/models/*"],
+      "@pages/*": ["./src/pages/*"],
       "@routes/*": ["./src/routes/*"],
       "@stores/*": ["./src/stores/*"]
     }
