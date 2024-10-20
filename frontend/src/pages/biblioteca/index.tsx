@@ -4,7 +4,9 @@ import Table from './components/table';
 const Biblioteca: React.FC = () => {
   return (
     <div className='mt-8'>
-      <Table data={[consumidorMock2024, consumidorMock2024, consumidorMock2024]} />
+      <Table
+        data={[consumidorMock2024, consumidorMock2024, consumidorMock2024]}
+      />
     </div>
   );
 };

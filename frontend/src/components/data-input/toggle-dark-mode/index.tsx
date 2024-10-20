@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { useThemeStore } from '@stores/ThemeStore';
 import { Moon, Sun } from 'phosphor-react';
+
+import { useThemeStore } from '@stores/ThemeStore';
 
 interface ToggleDarkModeProps {
   id?: string;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import MainRoutes from '@routes/MainRoutes';
+
 import { useThemeStore } from '@stores/ThemeStore';
 
 function App() {

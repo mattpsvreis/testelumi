@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
       placeholder={placeholder}
       required={required}
       onChange={(e) => onChange(e.target.value)}
-      className='rounded border border-dark-background/50 bg-light-foreground/40 px-3 py-2 text-light-text outline-none placeholder:text-light-placeholder dark:border-light-background dark:bg-dark-foreground dark:text-dark-text dark:placeholder:text-dark-placeholder'
+      className='rounded border border-dark-background/50 bg-light-foreground/40 px-3 py-2 text-light-text shadow-lg outline-none placeholder:text-light-placeholder dark:border-light-background dark:bg-dark-foreground dark:text-dark-text dark:placeholder:text-dark-placeholder'
     />
   );
 };

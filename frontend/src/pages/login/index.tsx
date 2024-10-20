@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-import { useAuthStore } from '@stores/AuthStore';
 import { Eye, EyeSlash } from 'phosphor-react';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '@components/data-input/input';
+
+import { useAuthStore } from '@stores/AuthStore';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

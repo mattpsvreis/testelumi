@@ -1,5 +1,3 @@
-import Layout from '@layouts/Layout';
-import { useAuthStore } from '@stores/AuthStore';
 import {
   Navigate,
   Route,
@@ -7,10 +5,14 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import Layout from '@layouts/Layout';
+
 import NotFound from '@pages/404';
 import Biblioteca from '@pages/biblioteca';
 import Dashboard from '@pages/dashboard';
 import Login from '@pages/login';
+
+import { useAuthStore } from '@stores/AuthStore';
 
 import ProtectedRoute from './ProtectedRoute';
 

@@ -1,12 +1,14 @@
-import useBibliotecaStore from '@stores/BibliotecaStore';
-import { FilePdf } from 'phosphor-react';
+import { FilePdf, Plus } from 'phosphor-react';
 
 import ToolTip from '@components/data-display/tooltip';
 import Input from '@components/data-input/input';
 import Select from '@components/data-input/select';
+import Button from '@components/interactive/button';
 
-import Consumidor from '../../../../models/consumidor';
-import Fatura from '../../../../models/fatura';
+import Consumidor from '@models/consumidor';
+import Fatura from '@models/fatura';
+
+import useBibliotecaStore from '@stores/BibliotecaStore';
 
 interface TableProps {
   data: Consumidor[];
@@ -63,7 +65,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
   return (
     <div className='w-full'>
       <div className='mb-4 flex w-full flex-row items-center justify-between'>
-        <div>
+        <div className='flex flex-row gap-4'>
           <Select
             value={distribuidora}
             onChange={setDistribuidora}
@@ -77,12 +79,20 @@ const Table: React.FC<TableProps> = ({ data }) => {
             placeholder='Filtrar por Consumidor'
           />
         </div>
-        <Input
-          type='text'
-          value={numeroUc}
-          onChange={setNumeroUc}
-          placeholder='Filtrar por Número da UC'
-        />
+        <div className='flex flex-row items-center gap-4'>
+          <Button
+            type='button'
+            className='rounded border border-dark-background/50 bg-light-primary p-2 shadow-lg dark:border-light-background'
+          >
+            <Plus size={24} className='text-light-text dark:text-dark-text' />
+          </Button>
+          <Input
+            type='text'
+            value={numeroUc}
+            onChange={setNumeroUc}
+            placeholder='Filtrar por Número da UC'
+          />
+        </div>
       </div>
       <table className='flex w-full flex-col items-center text-light-text shadow-xl dark:text-dark-text'>
         <thead className='border-1 w-full rounded-t border border-dark-background/50 bg-light-primary px-4 text-lg dark:border-light-background dark:bg-dark-secondary'>

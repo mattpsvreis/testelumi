@@ -1,10 +1,11 @@
-import { useAuthStore } from '@stores/AuthStore';
-import { useThemeStore } from '@stores/ThemeStore';
 import { ChartBar, SignOut, Table } from 'phosphor-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import ToolTip from '@components/data-display/tooltip';
 import ToggleDarkMode from '@components/data-input/toggle-dark-mode';
+
+import { useAuthStore } from '@stores/AuthStore';
+import { useThemeStore } from '@stores/ThemeStore';
 
 interface DesktopHeaderProps {
   shouldRender?: boolean;

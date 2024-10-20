@@ -1,4 +1,5 @@
 import Axios from '@configs/AxiosConfig';
+
 import Fatura from '@models/fatura';
 
 export const getFaturas = async (): Promise<Fatura[] | void> => {
