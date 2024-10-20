@@ -101,3 +101,5 @@ Gostaria de ter tido tempo para elaborar mais filtros além dos providos.
 Gostaria de ter tido tempo para popular melhor o dashboard com mais informações além das essenciais.
 
 Gostaria de ter tido tempo de subir a aplicação em uma VPS na DigitalOcean, utilizando GitHub Actions para o CI/CD.
+
+Foram dedicados para esse projeto um total de 25 horas.
