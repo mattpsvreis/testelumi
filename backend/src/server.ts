@@ -10,10 +10,7 @@ const server = Fastify({ logger: true });
 
 const UPLOAD_DIR = path.resolve(__dirname, "..", "uploads");
 
-console.log("UPLOAD_DIR:", UPLOAD_DIR);
-
 if (!fs.existsSync(UPLOAD_DIR)) {
-  console.log("creating upload-dir");
   fs.mkdirSync(UPLOAD_DIR);
 }
 
