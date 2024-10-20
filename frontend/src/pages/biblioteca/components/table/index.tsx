@@ -201,16 +201,40 @@ const Table: React.FC<TableProps> = ({ data }) => {
           {filteredData.map((consumidor, key) => (
             <tr key={key} className='flex w-full flex-row'>
               <td className='flex w-[15%] justify-center p-4'>
-                {consumidor.nome_uc}
+                <div id={`table-nome-uc-${key}`} className='truncate'>
+                  {consumidor.nome_uc}
+                </div>
+                <ToolTip
+                  anchorSelect={`#table-nome-uc-${key}`}
+                  placement='bottom'
+                >
+                  {consumidor.nome_uc}
+                </ToolTip>
               </td>
               <td className='flex w-[15%] justify-center p-4'>
                 {consumidor.numero_uc}
               </td>
               <td className='flex w-[15%] justify-center p-4'>
-                {consumidor.distribuidora}
+                <div id={`table-distribuidora-${key}`} className='truncate'>
+                  {consumidor.distribuidora}
+                </div>
+                <ToolTip
+                  anchorSelect={`#table-distribuidora-${key}`}
+                  placement='bottom'
+                >
+                  {consumidor.distribuidora}
+                </ToolTip>
               </td>
               <td className='flex w-[15%] justify-center p-4'>
-                {consumidor.consumidor}
+                <div id={`table-consumidor-${key}`} className='truncate'>
+                  {consumidor.consumidor}
+                </div>
+                <ToolTip
+                  anchorSelect={`#table-consumidor-${key}`}
+                  placement='bottom'
+                >
+                  {consumidor.consumidor}
+                </ToolTip>
               </td>
               {consumidor.faturas.map((fatura, key) => (
                 <td
