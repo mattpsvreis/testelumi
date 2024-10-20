@@ -2,7 +2,7 @@ import { getFaturasByNumeroCliente } from '@services/FaturasService';
 
 import Consumidor from '../models/consumidor';
 
-const faturasJoseMesaly = await getFaturasByNumeroCliente('3001116735');
+const faturasJoseMesaly = await getFaturasByNumeroCliente('7204076116');
 
 if (!faturasJoseMesaly) {
   throw new Error('Faturas do cliente 7204076116 não encontradas.');
