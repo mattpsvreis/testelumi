@@ -12,6 +12,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 456,
     energia_compensada_valor: -222.22,
     contribu_ilum_publica_valor: 49.43,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -23,6 +24,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 400,
     energia_compensada_valor: -200.0,
     contribu_ilum_publica_valor: 45.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -34,6 +36,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 470,
     energia_compensada_valor: -230.0,
     contribu_ilum_publica_valor: 50.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -45,6 +48,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 500,
     energia_compensada_valor: -245.0,
     contribu_ilum_publica_valor: 55.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -56,6 +60,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 530,
     energia_compensada_valor: -260.0,
     contribu_ilum_publica_valor: 60.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -67,6 +72,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 560,
     energia_compensada_valor: -275.0,
     contribu_ilum_publica_valor: 65.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -78,6 +84,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 590,
     energia_compensada_valor: -290.0,
     contribu_ilum_publica_valor: 70.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -89,6 +96,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 620,
     energia_compensada_valor: -305.0,
     contribu_ilum_publica_valor: 75.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -100,6 +108,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 650,
     energia_compensada_valor: -320.0,
     contribu_ilum_publica_valor: 80.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -111,6 +120,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 680,
     energia_compensada_valor: -335.0,
     contribu_ilum_publica_valor: 85.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -122,6 +132,7 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 710,
     energia_compensada_valor: -350.0,
     contribu_ilum_publica_valor: 90.0,
+    downloadLink: 'https://www.google.com',
   },
   {
     numero_cliente: '133769420',
@@ -133,5 +144,6 @@ export const faturasMock: Fatura[] = [
     energia_compensada_kwh: 740,
     energia_compensada_valor: -365.0,
     contribu_ilum_publica_valor: 95.0,
+    downloadLink: 'https://www.google.com',
   },
 ];
