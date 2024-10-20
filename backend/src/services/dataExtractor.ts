@@ -18,33 +18,93 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
 
   const text = data.text;
 
-  const numero_cliente = text.match(/Nº DO CLIENTE\s+(\d+)/);
+  const lines = text.split("\n");
 
-  const mes_referencia = text.match(/Referente a\s+(\w+\/\d+)/);
+  let i = 0;
 
-  const energia_eletrica_kwh = text.match(/Energia Elétrica\s+kWh\s+(\d+)/);
+  lines.forEach((line) => {
+    console.log(i, ":", line);
+    i++;
+  });
 
-  const energia_eletrica_valor = text.match(
-    /Energia Elétrica\s+R\$\s+([\d,]+)/
-  );
+  let numero_cliente: string | null = null;
+  let mes_referencia: string | null = null;
+  let energia_eletrica_kwh: string | null = null;
+  let energia_eletrica_valor: string | null = null;
+  let energia_sceee_kwh: string | null = null;
+  let energia_sceee_valor: string | null = null;
+  let energia_compensada_kwh: string | null = null;
+  let energia_compensada_valor: string | null = null;
+  let contribu_ilum_publica_valor: string | null = null;
 
-  const energia_sceee_kwh = text.match(/Energia SCEE s\/ ICMS\s+kWh\s+(\d+)/);
+  for (const line of lines) {
+    if (!numero_cliente) {
+      const match = line.match(/Nº DO CLIENTE\s+(\d+)/);
+      if (match) {
+        numero_cliente = match[1];
+      }
+    }
 
-  const energia_sceee_valor = text.match(
-    /Energia SCEE s\/ ICMS\s+R\$\s+([\d,]+)/
-  );
+    if (!mes_referencia) {
+      const match = line.match(/Referente a\s+(\w+\/\d+)/);
+      if (match) {
+        mes_referencia = match[1];
+      }
+    }
 
-  const energia_compensada_kwh = text.match(
-    /Energia compensada GD I\s+kWh\s+(\d+)/
-  );
+    if (!energia_eletrica_kwh) {
+      const match = line.match(/Energia ElétricakWh\s+(\d+)/);
+      if (match) {
+        energia_eletrica_kwh = match[1];
+      }
+    }
 
-  const energia_compensada_valor = text.match(
-    /Energia compensada GD I\s+R\$\s+([\d,]+)/
-  );
+    if (!energia_eletrica_valor) {
+      const match = line.match(/Energia ElétricakWh\s+\d+\s+[\d,]+\s+([\d,]+)/);
+      if (match) {
+        energia_eletrica_valor = match[1];
+      }
+    }
 
-  const contribu_ilum_publica_valor = text.match(
-    /Contrib Ilum Publica Municipal\s+([\d,]+)/
-  );
+    if (!energia_sceee_kwh) {
+      const match = line.match(/Energia SCEE s\/ ICMSkWh\s+([\d,.]+)/);
+      if (match) {
+        energia_sceee_kwh = match[1];
+      }
+    }
+
+    if (!energia_sceee_valor) {
+      const match = line.match(
+        /Energia SCEE s\/ ICMSkWh\s+\d+\s+[\d,]+\s+([\d,]+)/
+      );
+      if (match) {
+        energia_sceee_valor = match[1];
+      }
+    }
+
+    if (!energia_compensada_kwh) {
+      const match = line.match(/Energia compensada GD IkWh\s+([\d,.]+)/);
+      if (match) {
+        energia_compensada_kwh = match[1];
+      }
+    }
+
+    if (!energia_compensada_valor) {
+      const match = line.match(
+        /Energia compensada GD IkWh\s+\d+\s+[\d,]+\s+([\d,]+)/
+      );
+      if (match) {
+        energia_compensada_valor = match[1];
+      }
+    }
+
+    if (!contribu_ilum_publica_valor) {
+      const match = line.match(/Contrib Ilum Publica Municipal\s+([\d,]+)/);
+      if (match) {
+        contribu_ilum_publica_valor = match[1];
+      }
+    }
+  }
 
   if (!numero_cliente) {
     throw new Error("Número do cliente não encontrado");
@@ -83,20 +143,22 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
   }
 
   return {
-    numero_cliente: numero_cliente[1],
-    mes_referencia: new Date(mes_referencia[1]),
-    energia_eletrica_kwh: parseFloat(energia_eletrica_kwh[1]),
+    numero_cliente,
+    mes_referencia: new Date(mes_referencia),
+    energia_eletrica_kwh: parseFloat(energia_eletrica_kwh),
     energia_eletrica_valor: parseFloat(
-      energia_eletrica_valor[1].replace(",", ".")
+      energia_eletrica_valor.replace(",", ".")
     ),
-    energia_sceee_kwh: parseFloat(energia_sceee_kwh[1]),
-    energia_sceee_valor: parseFloat(energia_sceee_valor[1].replace(",", ".")),
-    energia_compensada_kwh: parseFloat(energia_compensada_kwh[1]),
+    energia_sceee_kwh: parseFloat(energia_sceee_kwh.replace(",", ".")),
+    energia_sceee_valor: parseFloat(energia_sceee_valor.replace(",", ".")),
+    energia_compensada_kwh: parseFloat(
+      energia_compensada_kwh.replace(",", ".")
+    ),
     energia_compensada_valor: parseFloat(
-      energia_compensada_valor[1].replace(",", ".")
+      energia_compensada_valor.replace(",", ".")
     ),
     contribu_ilum_publica_valor: parseFloat(
-      contribu_ilum_publica_valor[1].replace(",", ".")
+      contribu_ilum_publica_valor.replace(",", ".")
     ),
   };
 }

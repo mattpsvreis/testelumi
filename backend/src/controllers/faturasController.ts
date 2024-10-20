@@ -214,7 +214,7 @@ export const putFatura = async (
   }
 };
 
-export const getFatura = async (
+export const getFaturaById = async (
   request: FastifyRequest<{ Params: { id: string } }>,
   reply: FastifyReply
 ) => {
