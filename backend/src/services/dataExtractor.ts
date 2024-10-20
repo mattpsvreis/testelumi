@@ -182,20 +182,20 @@ async function extractDataFromPDF(fileBuffer: Buffer): Promise<FaturaData> {
   return {
     numero_cliente,
     mes_referencia: mes_referencia,
-    energia_eletrica_kwh: parseFloat(energia_eletrica_kwh),
+    energia_eletrica_kwh: parseFloat(energia_eletrica_kwh.replace(".", "")),
     energia_eletrica_valor: parseFloat(
-      energia_eletrica_valor.replace(",", ".")
+      energia_eletrica_valor.replace(".", "").replace(",", ".")
     ),
-    energia_sceee_kwh: parseFloat(energia_scee_kwh.replace(",", ".")),
-    energia_sceee_valor: parseFloat(energia_scee_valor.replace(",", ".")),
-    energia_compensada_kwh: parseFloat(
-      energia_compensada_kwh.replace(",", ".")
+    energia_sceee_kwh: parseFloat(energia_scee_kwh.replace(".", "")),
+    energia_sceee_valor: parseFloat(
+      energia_scee_valor.replace(".", "").replace(",", ".")
     ),
+    energia_compensada_kwh: parseFloat(energia_compensada_kwh.replace(".", "")),
     energia_compensada_valor: parseFloat(
-      energia_compensada_valor.replace(",", ".")
+      energia_compensada_valor.replace(".", "").replace(",", ".")
     ),
     contribu_ilum_publica_valor: parseFloat(
-      contribu_ilum_publica_valor.replace(",", ".")
+      contribu_ilum_publica_valor.replace(".", "").replace(",", ".")
     ),
   };
 }
