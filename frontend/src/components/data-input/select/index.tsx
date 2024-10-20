@@ -17,9 +17,12 @@ const Select: React.FC<SelectProps> = ({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className='mr-2 rounded border border-dark-background/50 bg-light-foreground/40 p-2 text-light-text shadow-sm outline-none focus:border-light-primary focus:ring focus:ring-light-primary/20 focus:ring-opacity-50 dark:border-gray-600 dark:bg-dark-foreground dark:text-dark-text dark:focus:border-dark-primary dark:focus:ring-dark-primary/50'
+      className='mr-2 rounded border border-dark-background/50 bg-light-foreground/40 p-2 text-light-text shadow-sm outline-none placeholder:text-light-placeholder focus:border-light-primary focus:ring focus:ring-light-primary/20 focus:ring-opacity-50 dark:border-light-background dark:bg-dark-foreground dark:text-dark-text dark:placeholder:text-dark-placeholder dark:focus:border-dark-primary dark:focus:ring-dark-primary/50'
     >
-      <option value='' className='text-gray-500 dark:text-gray-400'>
+      <option
+        value=''
+        className='text-light-placeholder dark:text-dark-placeholder'
+      >
         {placeholder}
       </option>
       {options.map((option, index) => (

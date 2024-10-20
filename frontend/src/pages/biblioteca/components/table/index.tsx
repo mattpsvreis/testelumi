@@ -12,8 +12,14 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data }) => {
-  const { consumidor, distribuidora, setConsumidor, setDistribuidora } =
-    useBibliotecaStore();
+  const {
+    consumidor,
+    distribuidora,
+    numeroUc,
+    setConsumidor,
+    setDistribuidora,
+    setNumeroUc,
+  } = useBibliotecaStore();
 
   const months = [
     'Jan',
@@ -42,7 +48,8 @@ const Table: React.FC<TableProps> = ({ data }) => {
         .includes(consumidor.consumidor.toLowerCase()) &&
       consumidor.distribuidora
         .toLowerCase()
-        .includes(distribuidora.toLowerCase())
+        .includes(distribuidora.toLowerCase()) &&
+      consumidor.numero_uc.toLowerCase().includes(numeroUc.toLowerCase())
   );
 
   const uniqueConsumidor = Array.from(
@@ -53,19 +60,28 @@ const Table: React.FC<TableProps> = ({ data }) => {
   );
 
   return (
-    <div>
-      <div className='mb-4 flex'>
-        <Select
-          value={distribuidora}
-          onChange={setDistribuidora}
-          options={uniqueDistribuidora}
-          placeholder='Filtrar por Distribuidora'
-        />
-        <Select
-          value={consumidor}
-          onChange={setConsumidor}
-          options={uniqueConsumidor}
-          placeholder='Filtrar por Consumidor'
+    <div className='w-full'>
+      <div className='mb-4 flex w-full flex-row items-center justify-between'>
+        <div>
+          <Select
+            value={distribuidora}
+            onChange={setDistribuidora}
+            options={uniqueDistribuidora}
+            placeholder='Filtrar por Distribuidora'
+          />
+          <Select
+            value={consumidor}
+            onChange={setConsumidor}
+            options={uniqueConsumidor}
+            placeholder='Filtrar por Consumidor'
+          />
+        </div>
+        <input
+          type='text'
+          value={numeroUc}
+          onChange={(e) => setNumeroUc(e.target.value)}
+          placeholder='Filtrar por Número da UC'
+          className='rounded border border-dark-background/50 bg-light-foreground/40 p-2 text-light-text outline-none placeholder:text-light-placeholder dark:border-light-background dark:bg-dark-foreground dark:text-dark-text dark:placeholder:text-dark-placeholder'
         />
       </div>
       <table className='flex w-full flex-col items-center text-light-text shadow-xl dark:text-dark-text'>
