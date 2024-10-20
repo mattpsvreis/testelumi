@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import { faturasRoutes } from "./routes/faturasRoutes";
 import fastifyMultipart from "@fastify/multipart";
 import fastifyStatic from "@fastify/static";
+import fastifyCors from "@fastify/cors";
 import path from "path";
 import fs from "fs";
 
@@ -22,6 +23,11 @@ server.register(fastifyStatic, {
   root: UPLOAD_DIR,
 
   prefix: "/uploads/",
+});
+
+server.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 });
 
 server.register(faturasRoutes);
