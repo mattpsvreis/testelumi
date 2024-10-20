@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
               <Legend />
               <Bar
                 dataKey='energia_eletrica_kwh'
-                fill='#8884d8'
+                fill='#12b5e7'
                 name={'Energia Elétrica (kWh)'}
               />
             </BarChart>
@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
               <Legend />
               <Bar
                 dataKey='energia_eletrica_valor'
-                fill='#82ca9d'
+                fill='#00d9ad'
                 name={'Energia Elétrica (R$)'}
               />
             </BarChart>

@@ -35,8 +35,8 @@ const Login: React.FC = () => {
         className='w-80 rounded-lg border border-black bg-white p-8 shadow-xl dark:border-white dark:bg-dark-foreground/60'
       >
         <div className='mb-4 flex flex-col gap-2'>
-          <label className='block text-lg text-light-text dark:text-dark-text'>
-            Nome de Usuário:
+          <label className='text-lg font-medium text-light-text dark:text-dark-text'>
+            Email:
           </label>
           <input
             type='text'
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
           />
         </div>
         <div className='relative mb-4 flex flex-col gap-2'>
-          <label className='block text-lg text-light-text dark:text-dark-text'>
+          <label className='text-lg font-medium text-light-text dark:text-dark-text'>
             Senha:
           </label>
           <input
