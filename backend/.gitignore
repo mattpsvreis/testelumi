@@ -3,6 +3,7 @@
 node_modules
 yarn.lock
 coverage
+uploads
 
 # Editor directories and files
 .vscode/*
