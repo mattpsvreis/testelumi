@@ -1,12 +1,15 @@
-import { FilePdf, Plus } from 'phosphor-react';
+import { FilePdf, Plus, Upload } from 'phosphor-react';
 
 import ToolTip from '@components/data-display/tooltip';
 import Input from '@components/data-input/input';
 import Select from '@components/data-input/select';
 import Button from '@components/interactive/button';
+import Modal from '@components/interactive/modal';
 
 import Consumidor from '@models/consumidor';
 import Fatura from '@models/fatura';
+
+import { uploadFaturaPDF } from '@services/FaturasService';
 
 import useBibliotecaStore from '@stores/BibliotecaStore';
 
@@ -19,9 +22,13 @@ const Table: React.FC<TableProps> = ({ data }) => {
     consumidor,
     distribuidora,
     numeroUc,
+    isModalOpen,
+    pdfFile,
     setConsumidor,
     setDistribuidora,
     setNumeroUc,
+    setIsModalOpen,
+    setPdfFile,
   } = useBibliotecaStore();
 
   const months = [
@@ -44,6 +51,26 @@ const Table: React.FC<TableProps> = ({ data }) => {
     window.open(url, '_blank');
   }
 
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile && selectedFile.type === 'application/pdf') {
+      setPdfFile(selectedFile);
+    } else {
+      alert('Escolha um arquivo PDF.');
+    }
+  }
+
+  function handleUpload() {
+    if (pdfFile) {
+      const formData = new FormData();
+      formData.append('file', pdfFile);
+
+      const fatura = uploadFaturaPDF(formData);
+
+      console.log('fatura:', fatura);
+    }
+  }
+
   const filteredData = data.filter(
     (consumidor) =>
       consumidor.consumidor
@@ -64,6 +91,55 @@ const Table: React.FC<TableProps> = ({ data }) => {
 
   return (
     <div className='w-full'>
+      <Modal
+        isOpen={isModalOpen}
+        setOpen={setIsModalOpen}
+        title='Fazer Upload de Fatura'
+      >
+        <div className='flex flex-col items-center gap-4'>
+          <div className='flex flex-row gap-4'>
+            <input
+              type='file'
+              accept='application/pdf'
+              onChange={handleFileChange}
+              id='file-input'
+              className='hidden'
+            />
+            <label
+              id='file-label'
+              htmlFor='file-input'
+              className='cursor-pointer rounded border border-dark-background/50 bg-light-secondary p-2 font-medium shadow-lg dark:border-light-background dark:bg-dark-secondary'
+            >
+              <FilePdf
+                size={24}
+                className='text-light-text dark:text-dark-text'
+              />
+              <ToolTip anchorSelect='#file-label' placement='bottom'>
+                Escolher Arquivo
+              </ToolTip>
+            </label>
+            <Button
+              id='send-button'
+              disabled={!Boolean(pdfFile)}
+              onClick={handleUpload}
+            >
+              <Upload
+                size={24}
+                className={`${Boolean(pdfFile) ? 'text-light-text dark:text-dark-text' : 'text-light-placeholder dark:text-dark-placeholder'}`}
+              />
+              <ToolTip anchorSelect='#send-button' placement='bottom'>
+                Enviar Fatura
+              </ToolTip>
+            </Button>
+          </div>
+          {pdfFile && (
+            <p className='text-light-text dark:text-dark-text'>
+              <span className='font-medium'>Arquivo selecionado:</span>{' '}
+              {pdfFile.name}
+            </p>
+          )}
+        </div>
+      </Modal>
       <div className='mb-4 flex w-full flex-row items-center justify-between'>
         <div className='flex flex-row gap-4'>
           <Select
@@ -81,10 +157,15 @@ const Table: React.FC<TableProps> = ({ data }) => {
         </div>
         <div className='flex flex-row items-center gap-4'>
           <Button
+            id='modal-button'
             type='button'
+            onClick={() => setIsModalOpen(true)}
             className='rounded border border-dark-background/50 bg-light-primary p-2 shadow-lg dark:border-light-background'
           >
             <Plus size={24} className='text-light-text dark:text-dark-text' />
+            <ToolTip anchorSelect='#modal-button' placement='bottom'>
+              Fazer Upload de Fatura
+            </ToolTip>
           </Button>
           <Input
             type='text'
@@ -95,7 +176,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
         </div>
       </div>
       <table className='flex w-full flex-col items-center text-light-text shadow-xl dark:text-dark-text'>
-        <thead className='border-1 w-full rounded-t border border-dark-background/50 bg-light-primary px-4 text-lg dark:border-light-background dark:bg-dark-secondary'>
+        <thead className='border-1 w-full rounded-t border border-dark-background/50 bg-light-primary px-4 text-lg dark:border-light-background dark:bg-dark-primary'>
           <tr className='flex w-full flex-row'>
             <th className='flex w-[15%] justify-center p-4 font-semibold'>
               Nome da UC

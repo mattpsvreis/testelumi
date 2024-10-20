@@ -15,8 +15,8 @@ module.exports = {
           foreground: '#d4d4d4',
         },
         dark: {
-          primary: '#00ffcc',
-          secondary: '#00b893',
+          primary: '#00b893',
+          secondary: '#4ea392',
           accent: '#12b5e7',
           background: '#151515',
           text: '#eae9fc',
