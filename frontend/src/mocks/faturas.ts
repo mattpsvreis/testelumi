@@ -1,10 +1,10 @@
 import Fatura from '../models/fatura';
 
 // Esse mock existe caso eu não termine o backend a tempo :P
-export const faturasMock: Fatura[] = [
+export const faturasMock2024: Fatura[] = [
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-01-01'),
+    mes_referencia: new Date('2024-01-02'),
     energia_eletrica_kwh: 50,
     energia_eletrica_valor: 47.75,
     energia_sceee_kwh: 456,
@@ -16,7 +16,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-02-01'),
+    mes_referencia: new Date('2024-02-02'),
     energia_eletrica_kwh: 45,
     energia_eletrica_valor: 43.0,
     energia_sceee_kwh: 400,
@@ -28,7 +28,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-03-01'),
+    mes_referencia: new Date('2024-03-02'),
     energia_eletrica_kwh: 55,
     energia_eletrica_valor: 52.25,
     energia_sceee_kwh: 470,
@@ -40,7 +40,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-04-01'),
+    mes_referencia: new Date('2024-04-02'),
     energia_eletrica_kwh: 60,
     energia_eletrica_valor: 57.0,
     energia_sceee_kwh: 500,
@@ -52,7 +52,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-05-01'),
+    mes_referencia: new Date('2024-05-02'),
     energia_eletrica_kwh: 65,
     energia_eletrica_valor: 61.75,
     energia_sceee_kwh: 530,
@@ -64,7 +64,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-06-01'),
+    mes_referencia: new Date('2024-06-02'),
     energia_eletrica_kwh: 70,
     energia_eletrica_valor: 66.5,
     energia_sceee_kwh: 560,
@@ -76,7 +76,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-07-01'),
+    mes_referencia: new Date('2024-07-02'),
     energia_eletrica_kwh: 75,
     energia_eletrica_valor: 71.25,
     energia_sceee_kwh: 590,
@@ -88,7 +88,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-08-01'),
+    mes_referencia: new Date('2024-08-02'),
     energia_eletrica_kwh: 80,
     energia_eletrica_valor: 76.0,
     energia_sceee_kwh: 620,
@@ -100,7 +100,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-09-01'),
+    mes_referencia: new Date('2024-09-02'),
     energia_eletrica_kwh: 85,
     energia_eletrica_valor: 80.75,
     energia_sceee_kwh: 650,
@@ -112,7 +112,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-10-01'),
+    mes_referencia: new Date('2024-10-02'),
     energia_eletrica_kwh: 90,
     energia_eletrica_valor: 85.5,
     energia_sceee_kwh: 680,
@@ -124,7 +124,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-11-01'),
+    mes_referencia: new Date('2024-11-02'),
     energia_eletrica_kwh: 95,
     energia_eletrica_valor: 90.25,
     energia_sceee_kwh: 710,
@@ -136,7 +136,7 @@ export const faturasMock: Fatura[] = [
   },
   {
     numero_cliente: '133769420',
-    mes_referencia: new Date('2024-12-01'),
+    mes_referencia: new Date('2024-12-02'),
     energia_eletrica_kwh: 100,
     energia_eletrica_valor: 95.0,
     energia_sceee_kwh: 740,
