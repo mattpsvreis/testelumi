@@ -2,6 +2,9 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import prisma from "../database/prismaClient";
 import { Fatura } from "../types/faturasTypes";
 import { processPDF } from "../services/dataExtractor";
+import { UPLOAD_DIR } from "../server";
+import path from "path";
+import fs from "fs";
 
 export const getFaturas = async (
   request: FastifyRequest,
@@ -66,9 +69,31 @@ export const processFatura = async (
 
     const fileBuffer = await file.toBuffer();
 
-    const fatura = await processPDF(fileBuffer);
+    const faturaProcessada = await processPDF(fileBuffer);
 
-    reply.status(200).send(fatura);
+    const filePath = path.join(UPLOAD_DIR, file.filename);
+    const writeStream = fs.createWriteStream(filePath);
+    file.file.pipe(writeStream);
+
+    writeStream.on("finish", () => {
+      console.log("File successfully written to:", filePath);
+    });
+
+    writeStream.on("error", (err) => {
+      console.error("Error writing file:", err);
+      reply.status(500).send(err);
+      return;
+    });
+
+    const fileUrl = `${request.protocol}://${request.hostname}:${request.port}/uploads/${file.filename}`;
+
+    console.log("fileUrl:", fileUrl);
+
+    const fatura = await prisma.fatura.create({
+      data: { ...faturaProcessada, fileUrl: fileUrl },
+    });
+
+    reply.status(201).send(fatura);
   } catch (error) {
     reply.status(500).send(error);
   }
@@ -229,6 +254,46 @@ export const getFaturaById = async (
       reply.status(200).send(fatura);
     } else {
       reply.status(404).send({ error: "Fatura not found" });
+    }
+  } catch (error) {
+    reply.status(500).send(error);
+  }
+};
+
+export const getFaturasByNumeroCliente = async (
+  request: FastifyRequest<{ Params: { numero_cliente: string } }>,
+  reply: FastifyReply
+) => {
+  try {
+    const { numero_cliente } = request.params;
+
+    const faturas = await prisma.fatura.findMany({
+      where: { numero_cliente: numero_cliente },
+    });
+
+    if (faturas) {
+      reply.status(200).send(faturas);
+    } else {
+      reply.status(404).send({ error: "Fatura not found" });
+    }
+  } catch (error) {
+    reply.status(500).send(error);
+  }
+};
+
+export const getFaturaPdf = async (
+  request: FastifyRequest<{ Params: { pdfName: string } }>,
+  reply: FastifyReply
+) => {
+  try {
+    const { pdfName } = request.params;
+
+    const filePath = path.join(UPLOAD_DIR, pdfName);
+
+    if (fs.existsSync(filePath)) {
+      reply.sendFile(filePath);
+    } else {
+      reply.status(404).send({ error: "File not found" });
     }
   } catch (error) {
     reply.status(500).send(error);
